@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
 const connectDB = require("./db");
+const cors = require("cors");
 const authRoutes = require("./routes/authRoute");
 const taskRoutes = require("./routes/taskRoute");
 const userRoutes = require("./routes/userRoute");
@@ -12,6 +13,14 @@ dotenv.config();
 connectDB();
 
 app.use(express.json());
+
+// 🔹 Enable CORS
+app.use(
+  cors({
+    origin: "http://localhost:4200", // Angular dev server URL
+    credentials: true, // allow cookies
+  })
+);
 
 // User routes
 app.use("/api/auth", authRoutes);
