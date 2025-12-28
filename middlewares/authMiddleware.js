@@ -6,8 +6,8 @@ const protect = (req, res, next) => {
     return res.status(401).json({ message: "No token, authorization denied" });
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // { id, role }
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    req.user = decoded;
     next();
   } catch (error) {
     res.status(401).json({ message: "Token is not valid" });
