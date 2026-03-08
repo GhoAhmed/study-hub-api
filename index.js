@@ -4,6 +4,9 @@ const connectDB = require("./config/db");
 
 const authRoutes = require("./routes/authRoutes");
 const courseRoutes = require("./routes/courseRoutes");
+const sectionRoutes = require("./routes/sectionRoutes");
+const lessonRoutes = require("./routes/lessonRoutes");
+const enrollmentRoutes = require("./routes/enrollmentRoutes");
 
 // const piscineRoutes = require("./routes/piscineRoute");
 
@@ -15,6 +18,9 @@ connectDB();
 
 app.use("/api", authRoutes);
 app.use("/api", courseRoutes);
+app.use("/api", sectionRoutes);
+app.use("/api", lessonRoutes);
+app.use("/api", enrollmentRoutes);
 
 // app.use("/api", piscineRoutes);
 
