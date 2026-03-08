@@ -3,6 +3,7 @@ const express = require("express");
 const connectDB = require("./config/db");
 
 const authRoutes = require("./routes/authRoutes");
+const courseRoutes = require("./routes/courseRoutes");
 
 // const piscineRoutes = require("./routes/piscineRoute");
 
@@ -13,6 +14,7 @@ app.use(express.json());
 connectDB();
 
 app.use("/api", authRoutes);
+app.use("/api", courseRoutes);
 
 // app.use("/api", piscineRoutes);
 

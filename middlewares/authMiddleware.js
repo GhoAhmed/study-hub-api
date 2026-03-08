@@ -1,14 +1,23 @@
 const jwt = require("jsonwebtoken");
 
-function authenticateToken(req, res, next) {
+exports.verifyToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-  if (!token) return res.status(401).json({ message: "Unauthorized!" });
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    if (err) return res.status(403).json({ message: "Token no longer valid." });
-    req.user = user;
-    next();
-  });
-}
+  const token = authHeader && authHeader.split(" ")[1]; // Bearer <token>
 
-module.exports = authenticateToken;
+  if (!token) return res.status(401).json({ error: "Access denied" });
+
+  try {
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    res.status(403).json({ error: "Invalid token" });
+  }
+};
+
+exports.verifyInstructor = (req, res, next) => {
+  if (req.user.role !== "instructor") {
+    return res.status(403).json({ error: "Instructor access only" });
+  }
+  next();
+};
