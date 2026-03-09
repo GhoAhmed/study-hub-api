@@ -11,6 +11,13 @@ const userSchema = new mongoose.Schema({
     enum: ["student", "instructor", "admin"],
     default: "student",
   },
+  isApproved: {
+    type: Boolean,
+    default: function () {
+      return this.role !== "instructor"; // students & admins auto-approved
+    },
+  },
+  isActive: { type: Boolean, default: true },
 });
 
 module.exports = mongoose.model("User", userSchema);
