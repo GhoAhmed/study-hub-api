@@ -25,9 +25,9 @@ app.use(express.json());
 
 connectDB();
 
+app.use("/api", courseRoutes);
 app.use("/api", adminRoutes);
 app.use("/api", authRoutes);
-app.use("/api", courseRoutes);
 app.use("/api", sectionRoutes);
 app.use("/api", lessonRoutes);
 app.use("/api", enrollmentRoutes);

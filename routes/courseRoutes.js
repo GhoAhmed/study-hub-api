@@ -11,6 +11,13 @@ router.get("/courses", courseController.getAllCourses);
 router.get("/courses/:id", courseController.getCourseById);
 
 // Instructor only
+router.get(
+  "/instructor/courses",
+  verifyToken,
+  verifyInstructor,
+  courseController.getMyCourses,
+);
+
 router.post(
   "/courses",
   verifyToken,
